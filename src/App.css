@@ -31,3 +31,171 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+.container.main{
+  padding: 0;
+}
+header, footer{
+  background: #f8f9fa;}
+.logo img {
+  width: 200px;
+}
+.mainNav {
+  display: inline-grid;
+  align-content: end;
+}
+.pageHeader{ margin-top: 40px; }
+.pageHeader h1{ width:100%; text-align: center; }
+.pageHeader p{ width:100%; text-align: center; }
+
+.mfProcess{width: 80%;margin:0 auto;}
+.mfProcess li {
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  line-height: 2em;
+  border-radius: 1em;
+  background: dodgerblue;
+  margin: 0 1em;
+  display: inline-block;
+  color: white;
+  position: relative;
+}
+
+.mfProcess li::before{
+  content: '';
+  position: absolute;
+  top: .9em;
+  left: -4em;
+  width: 4em;
+  height: .2em;
+  background: dodgerblue;
+  z-index: -1;
+}
+
+.mfProcess li:first-child::before {
+  display: none;
+}
+
+.mfProcess .active {
+  background: dodgerblue;
+}
+
+.mfProcess .active ~ li {
+  background: lightblue;
+}
+
+.mfProcess .active ~ li::before {
+  background: lightblue;
+}
+
+
+
+
+.formHeader{text-align:center;margin-top: 25px}
+.formHeader h5 {width: 100%}
+
+.mForm{width:70%;margin:0 auto;padding: 20px 5%;border: 1px solid grey;border-radius: 5px;margin-top: 20px;margin-bottom: 40px}
+.react-tel-input .form-control{width:100% !important;}
+.intl-tel-input {
+  display: table-cell;
+}
+.intl-tel-input .selected-flag {
+  z-index: 4;
+}
+.intl-tel-input .country-list {
+  z-index: 5;
+}
+.input-group .intl-tel-input .form-control {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 0;
+}
+span.Pshow {
+    position: absolute;
+    right: 24px;
+    top: 5px;
+}
+span.Phide {
+    position: absolute;
+    right: 24px;
+    top: 5px;
+}
+
+.gap-10{height: 10px; width: 100%; background: #fff;}
+.gap-20{height: 20px; width: 100%; background: #fff;}
+.gap-30{height: 30px; width: 100%; background: #fff;}
+.gap-40{height: 40px; width: 100%; background: #fff;}
+
+.form-group.row.fsubmit {
+    margin-top:20px;
+    display: block;
+    text-align: right;
+}
+.form-group.row.fsubmit button{
+    width: 79%;
+    height: 37px;
+    margin-right: 15px;
+}
+
+.stepTwo{text-align: center;}
+.stepTwo small, .stepTwo input  {margin: 0 auto; margin-bottom: 20px; width: 100% }
+.stepTwo div {margin: 0 auto;}
+.stepTwo .form-group {width: 100%}
+.css-w8afj7-Input{height: 38px}
+
+
+/*FILE INPUT START*/
+.form-group.row.files {
+    margin-top: 20px;
+}
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 35px 0px 90px 7%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+}
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+ }
+.files{ position:relative}
+.files:after {  pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.color input{ background-color:#f1f1f1;}
+.files:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;  pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 57px;
+    content: " or drag it here. ";
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+}
+/*FILE INPUT END*/
