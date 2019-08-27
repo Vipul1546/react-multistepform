@@ -55,7 +55,7 @@ class Multiform extends React.Component{
     	return (
             <Fragment>
                 <div className="row formHeader">
-                    <h5>Multi Step Form</h5>
+                    <h5> Multi Step Form </h5>
                     <ul className="mfProcess">
                       <li className="active">1</li>
                       <li>2</li>
