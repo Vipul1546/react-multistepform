@@ -10,43 +10,85 @@ class Multiform extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            formData : '',
+            sOneData : {},
+            sTwoData : '',
+            sThreeData : '',
             stage : 1,
-            fullData: {},
         }
 
-        this.processData = this.processData.bind(this);
         this.finalSubmit = this.finalSubmit.bind(this);
+        this.goBack = this.goBack.bind(this);
+        this.processData = this.processData.bind(this);
     }
 
-    processData = userData => {
-        let {stage} = this.state
+    processData = (userData, stageNo, error) => {
+        switch(stageNo){
+            case 1:
+                if(error !== ''){
+                    alert(error);
+                } else {
+                    this.setState({
+                        sOneData: userData,
+                        stage : stageNo + 1
+                    })
+                }
+                break;
+            case 2:
+                if(error !== ''){
+                    alert(error);
+                } else {
+                    this.setState({
+                        sTwoData: userData,
+                        stage : stageNo + 1
+                    })
+                }
+                break;
+            case 3:
+                if(error !== ''){
+                    alert(error);
+                } else {
+                    this.setState({
+                        sThreeData: userData,
+                        stage : stageNo + 1,
+                    })
+                }
+                break;
+            default:
+                console.log('default');
+        }
+    }
+
+    goBack = e => {
+        e.preventDefault();
+        let { stage } = this.state
         this.setState({
-                fullData: {...this.state.fullData, ...userData},
-                stage : stage + 1
-            })
-         console.log(userData);
-         console.log(stage);
+            stage : stage - 1, 
+        });
     }
 
     finalSubmit = e => {
         e.preventDefault();
-        console.log(this.state.fullData);
+        // this.setState({
+        //         fullData: {...this.state.sOneData, ...this.state.sTwoData, ...this.state.sThreeData},
+        //     })
+        //console.log(this.state.fullData);
     }
     render(){
         let component = null;
+        let { stage } = this.state;
+        let fData = {...this.state.sOneData, ...this.state.sTwoData, ...this.state.sThreeData};
         switch(this.state.stage) {
             case 1:
-                component = <MFstepOne dataCallback={this.processData} />;
+                component = <MFstepOne dataCallback={this.processData} data={this.state.sOneData} />;
                 break;
             case 2:
-                component = <MFstepTwo dataCallback={this.processData} />;
+                component = <MFstepTwo dataCallback={this.processData} data={this.state.sTwoData} />;
                 break;
             case 3:
-                component = <MFstepThree dataCallback={this.processData} />;
+                component = <MFstepThree dataCallback={this.processData} data={this.state.sThreeData} />;
                 break;
             case 4:
-                component = <Result data={this.state.fullData} />;
+                component = <Result data={fData} />;
                 break;
             default:
                 component = <MFstepOne dataCallback={this.processData} />;
@@ -65,12 +107,13 @@ class Multiform extends React.Component{
                 </div>
                 <form className="mForm">
                     { component }
-                    {/*<MFstepThree dataCallback={this.processData} />*/}
-                    {/*<MFstepTwo dataCallback={this.processData} />*/}
-                    {/*<MFstepOne dataCallback={this.processData}/>*/}
-                    <div className="form-group row fsubmit">
-                        <button type="submit" onClick={this.finalSubmit} className="btn btn-primary">Submit</button>
-                    </div>                
+                    {
+                        (stage !==1 && stage < 4)  
+                        ?   <div className="form-group row fsubmit text-center">
+                                <p onClick={ this.goBack } className="goBack"><u>or go back..</u></p>
+                            </div> 
+                        :   <Fragment></Fragment>
+                    }               
                 </form>
             </Fragment>
                 

@@ -20,7 +20,7 @@ class Input extends React.Component{
 				      id={props.name}
 				      name={props.name}
 				      type={props.type}
-				      value={props.value}
+				      value={ ( props.value === undefined ) ? '' : props.value }
 				      onChange={props.handleChange}
 				      placeholder={props.placeholder} 
 				    />

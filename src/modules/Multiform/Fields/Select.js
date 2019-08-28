@@ -11,7 +11,7 @@ class Select extends React.Component{
                      <select
                         className="custom-select" 
                         name={props.name}
-                        value={props.value}
+                        value={ ( props.value === "undefined" ) ? '' : props.value }
                         onChange={props.handleChange}
                         >
                         <option value="" disabled>{props.placeholder}</option>
@@ -19,7 +19,7 @@ class Select extends React.Component{
                             return (
                               <option
                                 key={option}
-                                value={option}
+                                value={ option }
                                 label={option}>{option}
                               </option>
                             );

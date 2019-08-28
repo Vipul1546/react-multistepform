@@ -13,11 +13,12 @@ class MFstepThree extends React.Component{
 
             this.state = {
                 value : 2,
+                stageNo : 3,
                 newUser: {
-                    name: '',
-                    website: '',
-                    country:'',
-                    file:''
+                    name: this.props.data.name,
+                    website: this.props.data.website,
+                    country:this.props.data.country,
+                    avatar:''
                 },
              	options: this.options,
       			value: null,
@@ -38,7 +39,7 @@ class MFstepThree extends React.Component{
          )
   	}
 
-  	handleInput(e) {
+  	handleInput = (e) => {
          let value = e.target.value;
          let name = e.target.name;
          this.setState( prevState => {
@@ -50,11 +51,37 @@ class MFstepThree extends React.Component{
          }//, () => console.log(this.state.newUser)
          )
     }
-    nextBlock(e){
+    nextBlock = (e) => {
     	e.preventDefault();
     	const {dataCallback} = this.props;
-    	dataCallback(this.state.newUser);
+    	let { stageNo } = this.state;
+    	let { newUser } = this.state
+        let error = '';
+        let eCount = 0;
+
+        if (typeof newUser.name === "undefined") {
+            error += 'Name Coded is Invalid.\n'
+            eCount++
+        } 
+        if (typeof newUser.website === "undefined") {
+            error += 'Website Coded is Invalid.\n'
+            eCount++
+        } 
+        if (typeof newUser.country === "undefined") {
+            error += 'Country Coded is Invalid.\n'
+            eCount++
+        } 
+        if (typeof newUser.avatar === "undefined") {
+            error += 'Avatar Coded is Invalid.\n'
+            eCount++
+        } 
+        if(eCount !== 0) {
+            dataCallback(this.state.newUser, stageNo, error);
+        } else {
+            dataCallback(this.state.newUser, stageNo, error);
+        }
     }
+
     render(){
     	return (
             <Fragment>
@@ -92,11 +119,11 @@ class MFstepThree extends React.Component{
 	                   title= {'Avatar'} 
 	                   name= {'avatar'}
 	                   value={this.state.newUser.avatar} 
-	                   handleChange = {this.handleavatar}
+	                   handleChange = {this.handleInput}
 	               	/>
 
 	                <div className="form-group row fsubmit">
-	                	<button type="submit" onClick={this.nextBlock} className="btn btn-primary">Register</button>
+	                	<button type="submit" onClick={this.nextBlock} className="btn btn-primary">Create your Profile</button>
 	            	</div>
             	</div>
             </Fragment>

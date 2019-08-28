@@ -199,3 +199,22 @@ span.Phide {
     text-align: center;
 }
 /*FILE INPUT END*/
+
+
+/* PROFILE CSS START */
+.profileBlock {font-size: 12px}
+.profileBlock .avatar {
+    padding: 0;
+    margin: 0;
+}
+.profileBlock .profile {
+    text-align: left;
+    padding-left: 0;
+}
+.profileBlock .profile div{padding-left: 2px;}
+.comment .avatar img {
+    width: 50px;
+}
+.pMeta{font-size: 10px}
+.comment{margin-bottom: 11px;}
+/* PROFILE CSS END */

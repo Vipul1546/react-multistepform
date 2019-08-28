@@ -8,8 +8,9 @@ class MFstepTwo extends React.Component{
         super(props);
             this.state = {
                 value : 2,
+                stageNo : 2,
                 newUser: {
-                    secCode: '',
+                    secCode: this.props.data.secCode,
                 },
             };
             this.nextBlock = this.nextBlock.bind(this);
@@ -28,7 +29,20 @@ class MFstepTwo extends React.Component{
     nextBlock = e => {
     	e.preventDefault();
     	const {dataCallback} = this.props;
-    	dataCallback(this.state.newUser);
+    	let { stageNo } = this.state;
+    	let { newUser } = this.state
+        let error = '';
+        let eCount = 0;
+
+        if (typeof newUser.secCode === "undefined") {
+            error += 'Security Coded is Invalid.\n'
+            eCount++
+        } 
+        if(eCount !== 0) {
+            dataCallback(this.state.newUser, stageNo, error);
+        } else {
+            dataCallback(this.state.newUser, stageNo, error);
+        }
     }
     render(){
     	return (
@@ -45,7 +59,7 @@ class MFstepTwo extends React.Component{
 	                   handleChange = {this.handleSecCode}
 	               	/>
 	                <div className="form-group row fsubmit">
-	                	<button type="submit" onClick={this.nextBlock} className="btn btn-primary">Register</button>
+	                	<button type="submit" onClick={this.nextBlock} className="btn btn-primary">Save and go further</button>
 	            	</div>
             	</div>
             </Fragment>

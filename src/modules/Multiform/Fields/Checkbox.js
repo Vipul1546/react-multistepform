@@ -14,7 +14,7 @@ class Checkbox extends React.Component{
 			              id = {props.name}
 			              name={props.name}
 			              onChange={props.handleChange}
-			              value={option}
+			              value={ ( option === undefined ) ? '' : option }
 			              type="checkbox" /> {option}
 			          </label>
 			        );

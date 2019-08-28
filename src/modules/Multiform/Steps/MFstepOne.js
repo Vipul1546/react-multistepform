@@ -13,11 +13,13 @@ class MFstepOne extends React.Component{
         super(props);
             this.state = {
                 value : 2,
+                stageNo : 1,
                 newUser: {
-                    email: '',
-                    telephone: '',
-                    category: '',
-                    password: '',
+                    email: this.props.data.email,
+                    telephone: this.props.data.telephone,
+                    category: this.props.data.category,
+                    password: this.props.data.password,
+                    terms: this.props.data.terms,
                 },
                 categoryOptions: ['Frontend Developer', 'Backend Developer'],
             };
@@ -26,6 +28,7 @@ class MFstepOne extends React.Component{
             this.handleTel = this.handleTel.bind(this);
             this.handleInput = this.handleInput.bind(this);
             this.nextBlock = this.nextBlock.bind(this);
+            this.handleTerm = this.handleTerm.bind(this);
     }
     componentDidMount(){
         document.getElementById("eye");
@@ -58,13 +61,57 @@ class MFstepOne extends React.Component{
                         ...prevState.newUser, [name]: value
                        }
             }
-         }//, () => console.log(this.state.newUser)
+         }
          )
     }
+
+    handleTerm = checked => {
+        let value = checked.target.checked
+        this.setState( prevState => {
+            return { 
+               newUser : {
+                        ...prevState.newUser, terms: value
+                       }
+            }
+         }
+         )
+    }
+
     nextBlock = e => {
     	e.preventDefault();
     	const {dataCallback} = this.props;
-    	dataCallback(this.state.newUser);
+        let { stageNo } = this.state;
+        let { newUser } = this.state
+        let error = '';
+        let eCount = 0;
+
+        if (typeof newUser.email === "undefined") {
+            error += 'Email is Invalid.\n'
+            eCount++
+        } 
+        if (typeof newUser.telephone === "undefined") {
+            error += 'Telephone is Invalid.\n'
+            eCount++
+        }
+        if (typeof newUser.category === "undefined") {
+            error += 'Category is Invalid.\n'
+            eCount++
+        }
+        if (typeof newUser.password === "undefined") {
+            error += 'Password is Invalid.\n'
+            eCount++
+        }
+        if (newUser.terms === false || typeof newUser.terms === "undefined") {
+            error += 'Check the checkbox.\n'
+            eCount++
+        }
+        if(eCount !== 0) {
+            dataCallback(this.state.newUser, stageNo, error);
+        } else {
+            dataCallback(this.state.newUser, stageNo, error);
+        }
+
+    	//dataCallback(this.state.newUser, stageNo);
     }
     render(){
     	return (
@@ -107,7 +154,7 @@ class MFstepOne extends React.Component{
                                />
                         <Checkbox 
                             name = {'terms'}
-                            onChange = {this.handleTerm}
+                            handleChange = {this.handleTerm}
                             options = {['Agree with terms and condition']}
                         />
                         <div className="form-group row fsubmit">

@@ -35,7 +35,7 @@ class HideShowPassword extends React.Component{
                               id={props.name}
                               name={props.name}
                               type={pType}
-                              value={props.value}
+                              value={ ( props.value === undefined ) ? '' : props.value }
                               onChange={props.handleChange}
                               placeholder={props.placeholder} 
                             />
