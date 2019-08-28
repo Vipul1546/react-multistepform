@@ -75,20 +75,45 @@ class Multiform extends React.Component{
     }
     render(){
         let component = null;
+        let processBar = null;
         let { stage } = this.state;
         let fData = {...this.state.sOneData, ...this.state.sTwoData, ...this.state.sThreeData};
         switch(this.state.stage) {
             case 1:
                 component = <MFstepOne dataCallback={this.processData} data={this.state.sOneData} />;
+                processBar =<Fragment>
+                                <li className="active">1<span class="processPart">Register</span></li> 
+                                <li>2 <span class="processPart">Security Code</span></li>
+                                <li>3 <span class="processPart">User Profile</span></li>
+                                <li>4 <span class="processPart">Thanks You</span></li>
+                            </Fragment>
                 break;
             case 2:
                 component = <MFstepTwo dataCallback={this.processData} data={this.state.sTwoData} />;
+                processBar =<Fragment>
+                                <li>1<span class="processPart">Register</span></li> 
+                                <li className="active">2 <span class="processPart">Security Code</span></li>
+                                <li>3 <span class="processPart">User Profile</span></li>
+                                <li>4 <span class="processPart">Thanks You</span></li>
+                            </Fragment>
                 break;
             case 3:
                 component = <MFstepThree dataCallback={this.processData} data={this.state.sThreeData} />;
+                processBar =<Fragment>
+                                <li>1<span class="processPart">Register</span></li> 
+                                <li>2 <span class="processPart">Security Code</span></li>
+                                <li className="active">3 <span class="processPart">User Profile</span></li>
+                                <li>4 <span class="processPart">Thanks You</span></li>
+                            </Fragment>
                 break;
             case 4:
                 component = <Result data={fData} />;
+                processBar =<Fragment>
+                                <li>1<span class="processPart">Register</span></li> 
+                                <li>2 <span class="processPart">Security Code</span></li>
+                                <li>3 <span class="processPart">User Profile</span></li>
+                                <li className="active">4 <span class="processPart">Thanks You</span></li>
+                            </Fragment>
                 break;
             default:
                 component = <MFstepOne dataCallback={this.processData} />;
@@ -99,10 +124,7 @@ class Multiform extends React.Component{
                 <div className="row formHeader">
                     <h5> Multi Step Form </h5>
                     <ul className="mfProcess">
-                      <li className="active">1</li>
-                      <li>2</li>
-                      <li>3</li>
-                      <li>4</li>
+                    { processBar }
                     </ul>  
                 </div>
                 <form className="mForm">
