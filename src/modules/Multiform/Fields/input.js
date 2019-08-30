@@ -5,27 +5,21 @@ class Input extends React.Component{
     render(){
     	let props= this.props;
     	return (
-            <div className="form-group row">
-                    { props.showTitle
-                        ? <label htmlFor={props.name} className="col-sm-2 col-form-label">{props.title}</label>
-                        : <p></p>
-                    }
-                
-                <div className= { props.showTitle
-                        ? "col-sm-10"
-                        : "col-sm-12"
-                    } >
+            <div className="form-group">
                     <input
 				      className="form-control"
 				      id={props.name}
 				      name={props.name}
 				      type={props.type}
-				      value={ ( props.value === undefined ) ? '' : props.value }
-				      onChange={props.handleChange}
-				      placeholder={props.placeholder} 
+			         value={ ( props.value === undefined ) ? '' : props.value }
+			         onChange={props.handleChange}
+                    placeholder={props.placeholder} 
 				    />
-                </div>
-            </div>                
+                    { props.showTitle
+                        ? <label className="form-control-placeholder" htmlFor={props.name}>{props.title}</label>
+                        : <p></p>
+                    }
+            </div>          
     		)
     }
 }

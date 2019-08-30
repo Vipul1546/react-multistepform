@@ -31,6 +31,7 @@ class Multiform extends React.Component{
                         sOneData: userData,
                         stage : stageNo + 1
                     })
+                    localStorage.setItem('mfStepOne', JSON.stringify(userData));
                 }
                 break;
             case 2:
@@ -41,6 +42,7 @@ class Multiform extends React.Component{
                         sTwoData: userData,
                         stage : stageNo + 1
                     })
+                    localStorage.setItem('mfStepTwo', JSON.stringify(userData));
                 }
                 break;
             case 3:
@@ -51,6 +53,7 @@ class Multiform extends React.Component{
                         sThreeData: userData,
                         stage : stageNo + 1,
                     })
+                    localStorage.setItem('mfStepThree', JSON.stringify(userData));
                 }
                 break;
             default:
@@ -82,37 +85,37 @@ class Multiform extends React.Component{
             case 1:
                 component = <MFstepOne dataCallback={this.processData} data={this.state.sOneData} />;
                 processBar =<Fragment>
-                                <li className="active">1<span class="processPart">Register</span></li> 
-                                <li>2 <span class="processPart">Security Code</span></li>
-                                <li>3 <span class="processPart">User Profile</span></li>
-                                <li>4 <span class="processPart">Thanks You</span></li>
+                                <li className="active">1<span className="processPart">Register</span><span className="line"></span></li> 
+                                <li>2 <span className="processPart">Security Code</span><span className="line"></span></li>
+                                <li>3 <span className="processPart">User Profile</span><span className="line"></span></li>
+                                <li>4 <span className="processPart">Thanks You</span></li>
                             </Fragment>
                 break;
             case 2:
                 component = <MFstepTwo dataCallback={this.processData} data={this.state.sTwoData} />;
                 processBar =<Fragment>
-                                <li>1<span class="processPart">Register</span></li> 
-                                <li className="active">2 <span class="processPart">Security Code</span></li>
-                                <li>3 <span class="processPart">User Profile</span></li>
-                                <li>4 <span class="processPart">Thanks You</span></li>
+                                <li>1<span className="processPart">Register</span><span className="line"></span></li> 
+                                <li className="active">2 <span className="processPart">Security Code</span><span className="line"></span></li>
+                                <li>3 <span className="processPart">User Profile</span><span className="line"></span></li>
+                                <li>4 <span className="processPart">Thanks You</span></li>
                             </Fragment>
                 break;
             case 3:
                 component = <MFstepThree dataCallback={this.processData} data={this.state.sThreeData} />;
                 processBar =<Fragment>
-                                <li>1<span class="processPart">Register</span></li> 
-                                <li>2 <span class="processPart">Security Code</span></li>
-                                <li className="active">3 <span class="processPart">User Profile</span></li>
-                                <li>4 <span class="processPart">Thanks You</span></li>
+                                <li>1<span className="processPart">Register</span><span className="line"></span></li> 
+                                <li>2 <span className="processPart">Security Code</span><span className="line"></span></li>
+                                <li className="active">3 <span className="processPart">User Profile</span><span className="line"></span></li>
+                                <li>4 <span className="processPart">Thanks You</span></li>
                             </Fragment>
                 break;
             case 4:
                 component = <Result data={fData} />;
                 processBar =<Fragment>
-                                <li>1<span class="processPart">Register</span></li> 
-                                <li>2 <span class="processPart">Security Code</span></li>
-                                <li>3 <span class="processPart">User Profile</span></li>
-                                <li className="active">4 <span class="processPart">Thanks You</span></li>
+                                <li>1<span className="processPart">Register</span><span className="line"></span></li> 
+                                <li>2 <span className="processPart">Security Code</span><span className="line"></span></li>
+                                <li>3 <span className="processPart">User Profile</span><span className="line"></span></li>
+                                <li className="active">4 <span className="processPart">Thanks You</span></li>
                             </Fragment>
                 break;
             default:
@@ -122,21 +125,23 @@ class Multiform extends React.Component{
     	return (
             <Fragment>
                 <div className="row formHeader">
-                    <h5> Multi Step Form </h5>
+                    <h5> Form Process </h5>
                     <ul className="mfProcess">
                     { processBar }
                     </ul>  
                 </div>
-                <form className="mForm">
-                    { component }
-                    {
-                        (stage !==1 && stage < 4)  
-                        ?   <div className="form-group row fsubmit text-center">
-                                <p onClick={ this.goBack } className="goBack"><u>or go back..</u></p>
-                            </div> 
-                        :   <Fragment></Fragment>
-                    }               
-                </form>
+                <div className="row">
+                    <form className="mForm col-md-6 center">
+                        { component }
+                        {
+                            (stage !==1 && stage < 4)  
+                            ?   <div className="row">
+                                    <p onClick={ this.goBack } className="goBack"><u>or go back..</u></p>
+                                </div> 
+                            :   <Fragment></Fragment>
+                        }               
+                    </form>
+                </div>
             </Fragment>
                 
     		)

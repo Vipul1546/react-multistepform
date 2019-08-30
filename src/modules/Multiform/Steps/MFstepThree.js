@@ -10,14 +10,14 @@ class MFstepThree extends React.Component{
     constructor(props) {
         super(props);
             this.options = countryList().getData()
-
+            let getObject = JSON.parse(localStorage.getItem('mfStepThree'));
             this.state = {
                 value : 2,
                 stageNo : 3,
                 newUser: {
-                    name: this.props.data.name,
-                    website: this.props.data.website,
-                    country:this.props.data.country,
+                    name: (getObject === null) ? '' : getObject.name,
+                    website: (getObject === null) ? '' : getObject.website,
+                    country: (getObject === null) ? '' : getObject.country,
                     avatar:''
                 },
              	options: this.options,
@@ -85,7 +85,7 @@ class MFstepThree extends React.Component{
     render(){
     	return (
             <Fragment>
-               	<div className="row formHeader stepTwo">
+               	<div className="container stepTwo">
                 	<h5>Create your user profile</h5>
                 	<small></small>
 	                <Input type={'text'}
@@ -104,15 +104,13 @@ class MFstepThree extends React.Component{
 	                   placeholder = {'website url'}
 	                   handleChange = {this.handleInput}
 	               	/>
-	               	<div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Country</label>
-                        <div className="col-sm-10">
-                            	<Select
-							        options={this.state.options}
-							        value={this.state.value}
-							        onChange={this.changeHandler}
-							      />
-                        </div>
+	               	<div className="form-group">
+                	   <Select
+  							        options={this.state.options}
+  							        value={this.state.value}
+  							        onChange={this.changeHandler}
+  							      />
+                      <label className="form-control-placeholder-tel">Country</label>
                     </div>
 
                      <InputFile type={'file'}

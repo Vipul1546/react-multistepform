@@ -18,17 +18,19 @@ class Register extends React.Component{
     render(){
         return (
             <Fragment>
-                <Header />
-                <Gap height="20" />
-                <div className="container">
-                    <div className="row pageHeader">
-                        <h1>Multi Step Form</h1>
-                        <p>You have to fill all the details.</p>
+                <div className="container arena">
+                    <Header />
+                    <Gap height="20" />
+                    <div className="container">
+                        <div className="row pageHeader">
+                            <h1>Multi Step Form</h1>
+                            <p>You have to fill all the details.</p>
+                        </div>
                     </div>
+                    <Multiform />
+                    <Gap height="20" />
+                    <Footer />
                 </div>
-                <Multiform />
-                <Gap height="20" />
-                <Footer />
             </Fragment>
             )
     }

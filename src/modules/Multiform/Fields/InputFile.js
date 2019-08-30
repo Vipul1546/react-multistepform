@@ -5,9 +5,7 @@ class InputFile extends React.Component{
     render(){
     	let props= this.props;
     	return (
-            <div className="form-group row files">
-                <label htmlFor={props.title} className="col-sm-2 col-form-label">{props.title}</label>
-	                <div className="col-sm-10">
+            <div className="form-group files">
 	                	<input 
                 			className="form-control"
 				      		id={props.name}
@@ -16,8 +14,8 @@ class InputFile extends React.Component{
 				      		value={ ( props.value === undefined ) ? '' : props.value }
 				      		onChange={props.handleChange}
 	                	 />
-	            	</div>
-          	</div>               
+               	<label htmlFor={props.title} className="form-control-placeholder">{props.title}</label>
+          	</div>               		
     		)
     }
 }

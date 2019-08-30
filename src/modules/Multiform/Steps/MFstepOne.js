@@ -11,15 +11,16 @@ import Checkbox from '../Fields/Checkbox.js'
 class MFstepOne extends React.Component{
     constructor(props) {
         super(props);
+        let getObject = JSON.parse(localStorage.getItem('mfStepOne'));
             this.state = {
                 value : 2,
                 stageNo : 1,
                 newUser: {
-                    email: this.props.data.email,
-                    telephone: this.props.data.telephone,
-                    category: this.props.data.category,
-                    password: this.props.data.password,
-                    terms: this.props.data.terms,
+                    email: (getObject === null) ? '' : getObject.email,
+                    telephone: (getObject === null) ? '' : getObject.telephone,
+                    category: (getObject === null) ? '' : getObject.category,
+                    password: '',
+                    terms: (getObject === null) ? '' : getObject.terms,
                 },
                 categoryOptions: ['Frontend Developer', 'Backend Developer'],
             };
@@ -125,9 +126,7 @@ class MFstepOne extends React.Component{
                            placeholder = {'Enter your Email'}
                            handleChange = {this.handleEmail}
                            />
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">Telephone</label>
-                            <div className="col-sm-10">
+                        <div className="form-group">
                                 <ReactPhoneInput 
                                     defaultCountry={'in'} 
                                     placeholder="Enter phone number"
@@ -135,7 +134,7 @@ class MFstepOne extends React.Component{
                                     value={ this.state.newUser.telephone }
                                     onChange={this.handleTel}
                                 />
-                            </div>
+                            <label className="form-control-placeholder-tel">Telephone</label>
                         </div>
                        <Select title={'Category'}
                                name={'category'}
@@ -155,14 +154,13 @@ class MFstepOne extends React.Component{
                         <Checkbox 
                             name = {'terms'}
                             handleChange = {this.handleTerm}
-                            options = {['Agree with terms and condition']}
+                            title = {'Agree with terms and condition'}
                         />
                         <div className="form-group row fsubmit">
                         	<button type="submit" onClick={this.nextBlock} className="btn btn-primary">Register</button>
                     	</div>
                     </div>
             </Fragment>
-                
     		)
     }
 }

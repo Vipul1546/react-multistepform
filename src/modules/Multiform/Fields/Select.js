@@ -5,11 +5,9 @@ class Select extends React.Component{
     render(){
     	let props= this.props;
     	return (
-            <div className="form-group row">
-                <label htmlFor={props.name} className="col-sm-2 col-form-label">{props.title}</label>
-                <div className="col-sm-10">
+            <div className="form-group ">
                      <select
-                        className="custom-select" 
+                        className="form-control custom-select" 
                         name={props.name}
                         value={ ( props.value === "undefined" ) ? '' : props.value }
                         onChange={props.handleChange}
@@ -25,8 +23,8 @@ class Select extends React.Component{
                             );
                           })}
                         </select>
-                </div>
-            </div>                
+                        <label htmlFor={props.name} className="form-control-placeholder">{props.title}</label>
+                </div>                
     		)
     }
 }

@@ -27,9 +27,7 @@ class HideShowPassword extends React.Component{
         let props = this.props;
     	return (
             <Fragment>
-                <div className="form-group row">
-                    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">{props.title}</label>
-                    <div className="col-sm-10">
+                <div className="form-group">
                         <input
                               className="form-control"
                               id={props.name}
@@ -38,12 +36,12 @@ class HideShowPassword extends React.Component{
                               value={ ( props.value === undefined ) ? '' : props.value }
                               onChange={props.handleChange}
                               placeholder={props.placeholder} 
-                            />
+                            />                            
+                            <label htmlFor={props.title} className="form-control-placeholder">{props.title}</label>
                             { pShow
                                 ? <span className="Pshow" onClick={this.showHidePassword}><FaEye /></span>
                                 : <span className="Pshow" onClick={this.showHidePassword}><FaEyeSlash /></span>
                             }
-                    </div>
                 </div>
             </Fragment>
                 

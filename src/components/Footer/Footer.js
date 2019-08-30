@@ -2,11 +2,9 @@ import React from 'react';
 
 function Footer() {
   return (
-      <footer>
-        <div className="footer-copyright text-center py-3">© 2019 Copyright:
-		    <a href="https://mdbootstrap.com/education/bootstrap/"> vipul</a>
-		  </div>
-      </footer>
+      <nav className="footer navbar navbar-expand-sm navbar-dark bg-dark">
+      	<a className="navbar-brand" href="#">© 2019 Copyright</a>
+    </nav>
   );
 }
 

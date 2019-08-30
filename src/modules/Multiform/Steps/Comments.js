@@ -29,16 +29,16 @@ class Comments extends React.Component{
 		                    </div>
 	                    	<div className="col-md-10 profile comments">
 		                        <div className="row pMeta">
-		                            <div className="col-md-6">{ data.name }</div>
-		                            <div className="col-md-6">{ data.date }</div>
+		                            <div className="col-md-6 cName">{ data.name }</div>
+		                            <div className="col-md-6 cDate">{ data.date }</div>
 		                        </div>
-		                        <div className="col-md-12">{ data.text }</div>
+		                        <div className="col-md-12 cDesc">{ data.text }</div>
 		                    </div>
 	                    </div>
                     ))
 
                     }
-                    <div className="text-center col" onClick={this.loadMore}>..Show More..</div>
+                    <div className="text-center col showMore" onClick={this.loadMore}>..Show More..</div>
                 </Fragment>              
     		)
     }

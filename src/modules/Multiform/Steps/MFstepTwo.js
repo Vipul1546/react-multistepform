@@ -6,11 +6,12 @@ import Input from '../Fields/input.js'
 class MFstepTwo extends React.Component{
     constructor(props) {
         super(props);
+        let getObject = JSON.parse(localStorage.getItem('mfStepTwo'));
             this.state = {
                 value : 2,
                 stageNo : 2,
                 newUser: {
-                    secCode: this.props.data.secCode,
+                    secCode: (getObject === null) ? '' : getObject.secCode,
                 },
             };
             this.nextBlock = this.nextBlock.bind(this);
@@ -47,12 +48,11 @@ class MFstepTwo extends React.Component{
     render(){
     	return (
             <Fragment>
-               	<div className="row formHeader stepTwo">
+               	<div className="container stepTwo">
                 	<h5>Create your security code</h5>
-                	<small>Enter Your Security Code</small>
 	                <Input type={'text'}
 	                   title= {'Security Code'} 
-	                   showTitle = { false }
+	                   showTitle = { true }
 	                   name= {'secCode'}
 	                   value={this.state.newUser.secCode} 
 	                   placeholder = {'Enter your Security Code'}
