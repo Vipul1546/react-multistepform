@@ -24,6 +24,8 @@ class MFstepOne extends React.Component{
                 },
                 categoryOptions: ['Frontend Developer', 'Backend Developer'],
             };
+
+            // bonding function
             this.handleChange = this.handleChange.bind(this);
             this.handleEmail = this.handleEmail.bind(this);
             this.handleTel = this.handleTel.bind(this);
@@ -31,13 +33,13 @@ class MFstepOne extends React.Component{
             this.nextBlock = this.nextBlock.bind(this);
             this.handleTerm = this.handleTerm.bind(this);
     }
-    componentDidMount(){
-        document.getElementById("eye");
-    }
+
     handleChange = e => {
         e.preventDefault();
         this.setState({value: e.target.value});
     }
+
+    // handing email input and saving to user object state
     handleEmail = e => {
         let value = e.target.value;
         this.setState( prevState => ({ newUser : 
@@ -46,6 +48,8 @@ class MFstepOne extends React.Component{
                                         }
                                     }))
     }
+
+    // handing telephone input and saving to user object state
     handleTel = value => {
         this.setState( prevState => ({ newUser : 
                                         {
@@ -53,6 +57,8 @@ class MFstepOne extends React.Component{
                                         }
                                     }))
     }
+
+    // handing input and saving to user object state
     handleInput = e => {
          let value = e.target.value;
          let name = e.target.name;
@@ -66,6 +72,7 @@ class MFstepOne extends React.Component{
          )
     }
 
+    // handing term and saving to user object state
     handleTerm = checked => {
         let value = checked.target.checked
         this.setState( prevState => {
@@ -78,7 +85,7 @@ class MFstepOne extends React.Component{
          )
     }
 
-    
+    // handing next/submit and validation
     nextBlock = e => {
     	e.preventDefault();
     	const {dataCallback} = this.props;

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Fragment } from 'react';
 import logo from '../../../logo.svg';
-//import { Link } from 'react-router-dom'
 
 class Comments extends React.Component{
     constructor(props) {
@@ -12,6 +11,8 @@ class Comments extends React.Component{
 
         this.loadMore = this.loadMore.bind(this);
     }
+
+    // setting load more
     loadMore = () => {
     	this.setState({
     		count: this.state.count + 2,

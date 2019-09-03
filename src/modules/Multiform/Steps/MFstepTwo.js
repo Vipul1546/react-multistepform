@@ -14,10 +14,12 @@ class MFstepTwo extends React.Component{
                     secCode: (getObject === null) ? '' : getObject.secCode,
                 },
             };
+            //binding the function to this
             this.nextBlock = this.nextBlock.bind(this);
             this.handleSecCode = this.handleSecCode.bind(this);
     }
 
+    // handing security code and saving to user object state
     handleSecCode = e => {
     	e.preventDefault();
     	let value = e.target.value;
@@ -27,6 +29,8 @@ class MFstepTwo extends React.Component{
                                         }
                                     }))
     }
+
+    // handing the callback of component 
     nextBlock = e => {
     	e.preventDefault();
     	const {dataCallback} = this.props;

@@ -24,31 +24,8 @@ class Result extends React.Component{
 
         this.processData = this.processData.bind(this);
     }
-    fetchPosts = (data) => {
-        let pdata = JSON.stringify(data);
-        console.log(pdata);
-        fetch('http://127.0.0.1:8000/users/add',
-                {   
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                    },
-                    body: pdata,
-                }
-            )
-        .then(response => response.json() )
-        .then(response => console.log(response))
-        .then((responseJson) => {       
-        console.log('asdf');    
-            let returnData = responseJson;
-            this.setState({
-                savedData : returnData,
-            });
-        })
-        .catch(error => this.setState({
-            sdError : error,
-        }))
-    }
+
+    // getting all input data of form and saving to server using using post API
     processData = (postData) => {
         let uData = this.props.data;
         console.log(uData);
@@ -61,6 +38,7 @@ class Result extends React.Component{
                 })
             });
 
+        // getting data from domin api and save to state
         this.setState({
             apiData : postData.whois.payload.api_response,
             etherscam: postData.etherscam.payload.status.value,
@@ -70,7 +48,7 @@ class Result extends React.Component{
             isLoading: false,
         })
 
-       if(this.state.postData !== null){
+       if(0&&this.state.postData !== null){
         localStorage.removeItem('ID-1');
         localStorage.removeItem('ID-2');
         localStorage.removeItem('ID-3');
@@ -88,6 +66,7 @@ class Result extends React.Component{
         //console.log(apiData);
     	return (
             <div className="container profileBlock">
+            {/*FETCHING DATA OF DOMAIN */}
             <FetchData apikey="domain" value="https://google.com" dataCallback={this.processData}/>
             { isLoading
                 ?   <div className="row center loadingBlock">

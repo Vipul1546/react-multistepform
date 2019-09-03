@@ -63,6 +63,7 @@ class Multiform extends React.Component{
         }
     }
 
+    // setting back back while preserving the state
     goBack = e => {
         e.preventDefault();
         let { stage } = this.state
@@ -71,11 +72,14 @@ class Multiform extends React.Component{
         });
     }
 
+    // render the component
     render(){
         let component = null;
         let processBar = null;
         let { stage } = this.state;
         let fData = {...this.state.sOneData, ...this.state.sTwoData, ...this.state.sThreeData};
+
+    {/* showing stage component accouding to stage */}
         switch(this.state.stage) {
             case 1:
                 component = <MFstepOne dataCallback={this.processData} data={this.state.sOneData} />;

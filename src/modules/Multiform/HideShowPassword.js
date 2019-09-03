@@ -13,6 +13,8 @@ class HideShowPassword extends React.Component{
             };
             this.showHidePassword = this.showHidePassword.bind(this);
     }
+
+    // toggling the input type
     showHidePassword(e) {
         e.preventDefault();
         var { pShow } = this.state;

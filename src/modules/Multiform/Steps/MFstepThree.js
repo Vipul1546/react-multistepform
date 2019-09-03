@@ -26,11 +26,13 @@ class MFstepThree extends React.Component{
              	options: this.options,
       			   value: null,
             };
+            // binding the function
             this.nextBlock = this.nextBlock.bind(this);
             this.handleInput = this.handleInput.bind(this);
             this.handleFile = this.handleFile.bind(this);
     }
 
+    // handing country and saving to user object state
     changeHandler = value => {
 	    this.setState({ value });
 	    this.setState( prevState => {
@@ -43,6 +45,7 @@ class MFstepThree extends React.Component{
          )
   	}
 
+    // handing input and saving to user object state
   	handleInput = (e) => {
          let value = e.target.value;
          let name = e.target.name;
@@ -56,6 +59,7 @@ class MFstepThree extends React.Component{
          )
     }
 
+    // handing file and saving to node server using post API
     handleFile = event =>{
       let name = event.target.name;
       let value = event.target.files[0];
@@ -77,6 +81,7 @@ class MFstepThree extends React.Component{
     console.log(value);
     }
 
+    // submitting the value and validation
     nextBlock = (e) => {
     	e.preventDefault();
     	const {dataCallback} = this.props;

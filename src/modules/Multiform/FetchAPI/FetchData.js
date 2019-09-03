@@ -13,9 +13,8 @@ class FetchData extends React.Component{
             };
             this.fetchPosts = this.fetchPosts.bind(this);
     }
-		//.then(response => console.log(response.response.whois.payload.api_response))
 
-
+    // fetching the data of domain
 	fetchPosts(){
 		let { apidata } = JSON.stringify(this.state); 
 		const { API } = this.state
@@ -29,7 +28,6 @@ class FetchData extends React.Component{
 				}
 			)
 		.then(response => response.json() )
-		//.then(response => console.log(response.response.whois.payload.api_response))
 		.then((responseJson) => {			
 			const {dataCallback} = this.props;
 			let returnData = responseJson.response;
