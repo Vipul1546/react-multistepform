@@ -1,4 +1,6 @@
 import * as React from 'react'
+import logo from '../../../logo.svg';
+
 //import { Link } from 'react-router-dom'
 
 class InputFile extends React.Component{
@@ -15,6 +17,7 @@ class InputFile extends React.Component{
 				      		onChange={props.handleChange}
 	                	 />
                	<label htmlFor={props.title} className="form-control-placeholder">{props.title}</label>
+                <img src={ ( props.imgSrc === '' ) ? logo : props.imgSrc } />
           	</div>               		
     		)
     }

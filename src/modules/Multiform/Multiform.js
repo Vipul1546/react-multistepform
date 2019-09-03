@@ -14,11 +14,13 @@ class Multiform extends React.Component{
             sTwoData : '',
             sThreeData : '',
             stage : 1,
+            reset : 0,
         }
 
         this.finalSubmit = this.finalSubmit.bind(this);
         this.goBack = this.goBack.bind(this);
         this.processData = this.processData.bind(this);
+        this.onReset = this.onReset.bind(this);
     }
 
     processData = (userData, stageNo, error) => {
@@ -29,9 +31,10 @@ class Multiform extends React.Component{
                 } else {
                     this.setState({
                         sOneData: userData,
-                        stage : stageNo + 1
+                        stage : stageNo + 1,
+                        reset: 1
                     })
-                    localStorage.setItem('mfStepOne', JSON.stringify(userData));
+                    localStorage.setItem('ID-'+stageNo, JSON.stringify(userData));
                 }
                 break;
             case 2:
@@ -40,9 +43,9 @@ class Multiform extends React.Component{
                 } else {
                     this.setState({
                         sTwoData: userData,
-                        stage : stageNo + 1
+                        stage : stageNo + 1,
                     })
-                    localStorage.setItem('mfStepTwo', JSON.stringify(userData));
+                    localStorage.setItem('ID-'+stageNo, JSON.stringify(userData));
                 }
                 break;
             case 3:
@@ -53,7 +56,7 @@ class Multiform extends React.Component{
                         sThreeData: userData,
                         stage : stageNo + 1,
                     })
-                    localStorage.setItem('mfStepThree', JSON.stringify(userData));
+                    localStorage.setItem('ID-'+stageNo, JSON.stringify(userData));
                 }
                 break;
             default:
@@ -61,6 +64,16 @@ class Multiform extends React.Component{
         }
     }
 
+    onReset = e => {
+        e.preventDefault();
+        let { stage } = this.state        
+        localStorage.removeItem('ID-'+stage);
+        this.setState({
+            reset : 0, 
+            sOneData: {}
+        });
+        console.log('sdf');
+    }
     goBack = e => {
         e.preventDefault();
         let { stage } = this.state
@@ -124,14 +137,14 @@ class Multiform extends React.Component{
 
     	return (
             <Fragment>
-                <div className="row formHeader">
+                <div className="row formHeader" reset={this.state.reset}>
                     <h5> Form Process </h5>
                     <ul className="mfProcess">
                     { processBar }
                     </ul>  
                 </div>
                 <div className="row">
-                    <form className="mForm col-md-6 center">
+                    <form className="mForm col-md-6 center" encType="multipart/form-data">
                         { component }
                         {
                             (stage !==1 && stage < 4)  
@@ -139,7 +152,10 @@ class Multiform extends React.Component{
                                     <p onClick={ this.goBack } className="goBack"><u>or go back..</u></p>
                                 </div> 
                             :   <Fragment></Fragment>
-                        }               
+                        }    
+                        <div className="container reset">
+                            <button type="button" onClick={this.onReset} className="btn-sm btn-outline-secondary">Reset</button>
+                        </div>           
                     </form>
                 </div>
             </Fragment>

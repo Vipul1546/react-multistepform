@@ -5,12 +5,14 @@ import Input from '../Fields/input.js'
 import InputFile from '../Fields/InputFile'
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
+import axios from 'axios';
+
 
 class MFstepThree extends React.Component{
     constructor(props) {
         super(props);
             this.options = countryList().getData()
-            let getObject = JSON.parse(localStorage.getItem('mfStepThree'));
+            let getObject = JSON.parse(localStorage.getItem('ID-3'));
             this.state = {
                 value : 2,
                 stageNo : 3,
@@ -18,13 +20,15 @@ class MFstepThree extends React.Component{
                     name: (getObject === null) ? '' : getObject.name,
                     website: (getObject === null) ? '' : getObject.website,
                     country: (getObject === null) ? '' : getObject.country,
-                    avatar:''
+                    avatar:'',
+                    avatarName:''
                 },
              	options: this.options,
-      			value: null,
+      			   value: null,
             };
             this.nextBlock = this.nextBlock.bind(this);
             this.handleInput = this.handleInput.bind(this);
+            this.handleFile = this.handleFile.bind(this);
     }
 
     changeHandler = value => {
@@ -51,6 +55,28 @@ class MFstepThree extends React.Component{
          }//, () => console.log(this.state.newUser)
          )
     }
+
+    handleFile = event =>{
+      let name = event.target.name;
+      let value = event.target.files[0];
+      let fileName = event.target.files[0].name;
+      const data = new FormData()
+      data.append('avatar', value);
+
+      axios.post('http://127.0.0.1:8000/upload/single/',data)
+        .then(res => {
+          this.setState( prevState => {
+            return { 
+               newUser : {
+                        ...prevState.newUser, avatarName: 'http://localhost:8000/'+res.data.path
+                       }
+            }
+         })
+        });
+
+    console.log(value);
+    }
+
     nextBlock = (e) => {
     	e.preventDefault();
     	const {dataCallback} = this.props;
@@ -59,22 +85,22 @@ class MFstepThree extends React.Component{
         let error = '';
         let eCount = 0;
 
-        if (typeof newUser.name === "undefined") {
+        if (typeof newUser.name === "undefined" || newUser.name === '') {
             error += 'Name Coded is Invalid.\n'
             eCount++
         } 
-        if (typeof newUser.website === "undefined") {
+        if (typeof newUser.website === "undefined" || newUser.website === '') {
             error += 'Website Coded is Invalid.\n'
             eCount++
         } 
-        if (typeof newUser.country === "undefined") {
+        if (typeof newUser.country === "undefined" || newUser.country === '') {
             error += 'Country Coded is Invalid.\n'
             eCount++
         } 
-        if (typeof newUser.avatar === "undefined") {
-            error += 'Avatar Coded is Invalid.\n'
-            eCount++
-        } 
+        // if (typeof newUser.avatar === "undefined" || newUser.avatar === '') {
+        //     error += 'Avatar Coded is Invalid.\n'
+        //     eCount++
+        // } 
         if(eCount !== 0) {
             dataCallback(this.state.newUser, stageNo, error);
         } else {
@@ -116,8 +142,9 @@ class MFstepThree extends React.Component{
                      <InputFile type={'file'}
 	                   title= {'Avatar'} 
 	                   name= {'avatar'}
-	                   value={this.state.newUser.avatar} 
-	                   handleChange = {this.handleInput}
+	                   //value={'sdfvsdfvsd'} 
+	                   handleChange = {this.handleFile}
+                     imgSrc= {this.state.newUser.avatarName}
 	               	/>
 
 	                <div className="form-group row fsubmit">

@@ -11,7 +11,7 @@ import Checkbox from '../Fields/Checkbox.js'
 class MFstepOne extends React.Component{
     constructor(props) {
         super(props);
-        let getObject = JSON.parse(localStorage.getItem('mfStepOne'));
+        let getObject = JSON.parse(localStorage.getItem('ID-1'));
             this.state = {
                 value : 2,
                 stageNo : 1,
@@ -78,6 +78,7 @@ class MFstepOne extends React.Component{
          )
     }
 
+    
     nextBlock = e => {
     	e.preventDefault();
     	const {dataCallback} = this.props;
@@ -86,23 +87,23 @@ class MFstepOne extends React.Component{
         let error = '';
         let eCount = 0;
 
-        if (typeof newUser.email === "undefined") {
+        if (typeof newUser.email === "undefined" || newUser.email === '') {
             error += 'Email is Invalid.\n'
             eCount++
         } 
-        if (typeof newUser.telephone === "undefined") {
+        if (typeof newUser.telephone === "undefined" || newUser.telephone === '') {
             error += 'Telephone is Invalid.\n'
             eCount++
         }
-        if (typeof newUser.category === "undefined") {
+        if (typeof newUser.category === "undefined" || newUser.category === '') {
             error += 'Category is Invalid.\n'
             eCount++
         }
-        if (typeof newUser.password === "undefined") {
+        if (typeof newUser.password === "undefined" || newUser.password === '') {
             error += 'Password is Invalid.\n'
             eCount++
         }
-        if (newUser.terms === false || typeof newUser.terms === "undefined") {
+        if (newUser.terms === false || typeof newUser.terms === "undefined" || newUser.terms === '') {
             error += 'Check the checkbox.\n'
             eCount++
         }

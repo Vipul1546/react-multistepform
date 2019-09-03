@@ -6,7 +6,7 @@ import Input from '../Fields/input.js'
 class MFstepTwo extends React.Component{
     constructor(props) {
         super(props);
-        let getObject = JSON.parse(localStorage.getItem('mfStepTwo'));
+        let getObject = JSON.parse(localStorage.getItem('ID-2'));
             this.state = {
                 value : 2,
                 stageNo : 2,
@@ -35,7 +35,7 @@ class MFstepTwo extends React.Component{
         let error = '';
         let eCount = 0;
 
-        if (typeof newUser.secCode === "undefined") {
+        if (typeof newUser.secCode === "undefined" || newUser.secCode === '') {
             error += 'Security Coded is Invalid.\n'
             eCount++
         } 

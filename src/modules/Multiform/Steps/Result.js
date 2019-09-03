@@ -6,6 +6,7 @@ import { Fragment } from 'react';
 import Comments from './Comments'
 import {FaStar} from 'react-icons/fa'
 import {FaStarHalf} from 'react-icons/fa'
+import axios from 'axios';
 
 class Result extends React.Component{
     constructor(props) {
@@ -17,23 +18,59 @@ class Result extends React.Component{
                 wot: '',
                 isLoading: true,
                 cData: '',
+                savedData: '',
+                avatarImg: '',
             };
 
         this.processData = this.processData.bind(this);
     }
-
+    fetchPosts = (data) => {
+        let pdata = JSON.stringify(data);
+        console.log(pdata);
+        fetch('http://127.0.0.1:8000/users/add',
+                {   
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                    body: pdata,
+                }
+            )
+        .then(response => response.json() )
+        .then(response => console.log(response))
+        .then((responseJson) => {       
+        console.log('asdf');    
+            let returnData = responseJson;
+            this.setState({
+                savedData : returnData,
+            });
+        })
+        .catch(error => this.setState({
+            sdError : error,
+        }))
+    }
     processData = (postData) => {
-        console.log(postData);
-       this.setState({
-        apiData : postData.whois.payload.api_response,
-        etherscam: postData.etherscam.payload.status.value,
-        phishtank: postData.phishtank.payload.status.value,
-        wot: postData.wot.payload.trust.value,
-        cData: postData.wot.payload.comments,
-        isLoading: false,
-       })
+        let uData = this.props.data;
+        console.log(uData);
 
-       if(this.state.postData !== null){
+         axios.post('http://127.0.0.1:8000/users/add', uData)
+        .then(res => { console.log(res.data)
+            this.setState({
+                savedData: true,
+                avatarImg: res.data.avatarName
+                })
+            });
+
+        this.setState({
+            apiData : postData.whois.payload.api_response,
+            etherscam: postData.etherscam.payload.status.value,
+            phishtank: postData.phishtank.payload.status.value,
+            wot: postData.wot.payload.trust.value,
+            cData: postData.wot.payload.comments,
+            isLoading: false,
+        })
+
+       if(this.state.postData !== null && this.state.savedData === true){
         localStorage.removeItem('mfStepTwo');
         localStorage.removeItem('mfStepOne');
         localStorage.removeItem('mfStepThree');
@@ -51,6 +88,7 @@ class Result extends React.Component{
         //console.log(apiData);
     	return (
             <div className="container profileBlock">
+            <FetchData apikey="domain" value="https://google.com" dataCallback={this.processData}/>
             { isLoading
                 ?   <div className="row center loadingBlock">
                     <img className="loader" src={loader} alt="loader"/>
@@ -62,7 +100,7 @@ class Result extends React.Component{
                 	</div>
                     <div className="row infoBlock">
                         <div className="col-md-3 avatar">
-                            <img src={logo} alt='profile image'/>
+                            <img src={(this.state.avatarImg === '') ? logo : this.state.avatarImg } alt='profile image'/>
                         </div>
                         <div className="col-md-4 profile">
                             <div className="col"><span className="value">{ data.name }</span><span className="key">Name</span></div>
@@ -99,7 +137,6 @@ class Result extends React.Component{
                     <Comments cData={cData}/>
                 </Fragment>    
             }
-                <FetchData apikey="domain" value="https://google.com" dataCallback={this.processData}/>
             </div>                
     		)
     }
