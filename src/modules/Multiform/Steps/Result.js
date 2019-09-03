@@ -71,9 +71,9 @@ class Result extends React.Component{
         })
 
        if(this.state.postData !== null && this.state.savedData === true){
-        localStorage.removeItem('mfStepTwo');
-        localStorage.removeItem('mfStepOne');
-        localStorage.removeItem('mfStepThree');
+        localStorage.removeItem('ID-1');
+        localStorage.removeItem('ID-2');
+        localStorage.removeItem('ID-3');
        }
     }
 

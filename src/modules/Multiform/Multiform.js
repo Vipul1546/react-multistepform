@@ -17,12 +17,11 @@ class Multiform extends React.Component{
             reset : 0,
         }
 
-        this.finalSubmit = this.finalSubmit.bind(this);
         this.goBack = this.goBack.bind(this);
         this.processData = this.processData.bind(this);
-        this.onReset = this.onReset.bind(this);
     }
-
+ 
+    // setting form stage status and saving the data to local storage
     processData = (userData, stageNo, error) => {
         switch(stageNo){
             case 1:
@@ -64,16 +63,6 @@ class Multiform extends React.Component{
         }
     }
 
-    onReset = e => {
-        e.preventDefault();
-        let { stage } = this.state        
-        localStorage.removeItem('ID-'+stage);
-        this.setState({
-            reset : 0, 
-            sOneData: {}
-        });
-        console.log('sdf');
-    }
     goBack = e => {
         e.preventDefault();
         let { stage } = this.state
@@ -82,13 +71,6 @@ class Multiform extends React.Component{
         });
     }
 
-    finalSubmit = e => {
-        e.preventDefault();
-        // this.setState({
-        //         fullData: {...this.state.sOneData, ...this.state.sTwoData, ...this.state.sThreeData},
-        //     })
-        //console.log(this.state.fullData);
-    }
     render(){
         let component = null;
         let processBar = null;
@@ -153,9 +135,7 @@ class Multiform extends React.Component{
                                 </div> 
                             :   <Fragment></Fragment>
                         }    
-                        <div className="container reset">
-                            <button type="button" onClick={this.onReset} className="btn-sm btn-outline-secondary">Reset</button>
-                        </div>           
+                                 
                     </form>
                 </div>
             </Fragment>
