@@ -70,7 +70,7 @@ class Result extends React.Component{
             isLoading: false,
         })
 
-       if(this.state.postData !== null && this.state.savedData === true){
+       if(this.state.postData !== null){
         localStorage.removeItem('ID-1');
         localStorage.removeItem('ID-2');
         localStorage.removeItem('ID-3');
