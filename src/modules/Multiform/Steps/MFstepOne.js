@@ -39,58 +39,59 @@ class MFstepOne extends React.Component{
         this.setState({value: e.target.value});
     }
 
+    // saving the state of input on value change to local storage
+    // function called while setting the state
+    saveState = () => {
+        let { stageNo, newUser } = this.state
+        localStorage.setItem('ID-'+stageNo, JSON.stringify(newUser))
+    } 
+
     // handing email input and saving to user object state
     handleEmail = e => {
         let value = e.target.value;
-        this.setState( prevState => ({ newUser : 
-                                        {
-                                            ...prevState.newUser, email: value
-                                        }
-                                    }))
+        this.setState( prevState => ({ 
+            newUser : {
+                ...prevState.newUser, email: value
+            }
+        }), () => this.saveState())
     }
 
     // handing telephone input and saving to user object state
     handleTel = value => {
-        this.setState( prevState => ({ newUser : 
-                                        {
-                                            ...prevState.newUser, telephone: value
-                                        }
-                                    }))
+        let { stageNo, newUser } = this.state
+        this.setState( prevState => ({ 
+            newUser : {
+                ...prevState.newUser, telephone: value
+            }
+        }), () => this.saveState())
     }
 
     // handing input and saving to user object state
     handleInput = e => {
          let value = e.target.value;
          let name = e.target.name;
-         this.setState( prevState => {
-            return { 
-               newUser : {
-                        ...prevState.newUser, [name]: value
-                       }
-            }
-         }
-         )
+         this.setState( prevState => ({
+            newUser : {
+                ...prevState.newUser, [name]: value
+           }
+        }), () => this.saveState())
     }
 
     // handing term and saving to user object state
     handleTerm = checked => {
         let value = checked.target.checked
-        this.setState( prevState => {
-            return { 
-               newUser : {
-                        ...prevState.newUser, terms: value
-                       }
-            }
-         }
-         )
+        this.setState( prevState => ({
+            newUser : {
+                ...prevState.newUser, terms: value
+           }
+        }), () => this.saveState())
     }
 
     // handing next/submit and validation
     nextBlock = e => {
     	e.preventDefault();
     	const {dataCallback} = this.props;
-        let { stageNo } = this.state;
-        let { newUser } = this.state
+        let { stageNo, newUser } = this.state;
         let error = '';
         let eCount = 0;
 
@@ -119,8 +120,6 @@ class MFstepOne extends React.Component{
         } else {
             dataCallback(this.state.newUser, stageNo, error);
         }
-
-    	//dataCallback(this.state.newUser, stageNo);
     }
     render(){
     	return (

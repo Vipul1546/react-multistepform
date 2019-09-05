@@ -19,23 +19,29 @@ class MFstepTwo extends React.Component{
             this.handleSecCode = this.handleSecCode.bind(this);
     }
 
+    // saving the state of input on value change to local storage
+    // function called while setting the state
+    saveState = () => {
+        let { stageNo, newUser } = this.state
+        localStorage.setItem('ID-'+stageNo, JSON.stringify(newUser))
+    } 
+
     // handing security code and saving to user object state
     handleSecCode = e => {
     	e.preventDefault();
     	let value = e.target.value;
-        this.setState( prevState => ({ newUser : 
-                                        {
-                                            ...prevState.newUser, secCode: value
-                                        }
-                                    }))
+        this.setState( prevState => ({ 
+            newUser : {
+                ...prevState.newUser, secCode: value
+            }
+        }), () => this.saveState())
     }
 
     // handing the callback of component 
     nextBlock = e => {
     	e.preventDefault();
     	const {dataCallback} = this.props;
-    	let { stageNo } = this.state;
-    	let { newUser } = this.state
+    	let { stageNo, newUser } = this.state;
         let error = '';
         let eCount = 0;
 

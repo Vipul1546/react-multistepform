@@ -21,10 +21,10 @@ class MFstepThree extends React.Component{
                     website: (getObject === null) ? '' : getObject.website,
                     country: (getObject === null) ? '' : getObject.country,
                     avatar:'',
-                    avatarName:''
+                    avatarName:(getObject === null) ? '' : getObject.avatarName,
                 },
              	options: this.options,
-      			   value: null,
+      			   value: (getObject === null) ? null : getObject.country,
             };
             // binding the function
             this.nextBlock = this.nextBlock.bind(this);
@@ -32,31 +32,34 @@ class MFstepThree extends React.Component{
             this.handleFile = this.handleFile.bind(this);
     }
 
+    // saving the state of input on value change to local storage
+    // function called while setting the state
+    saveState = () => {
+        let { stageNo, newUser } = this.state
+        localStorage.setItem('ID-'+stageNo, JSON.stringify(newUser))
+    } 
+
     // handing country and saving to user object state
     changeHandler = value => {
 	    this.setState({ value });
-	    this.setState( prevState => {
-            return { 
-               newUser : {
-                        ...prevState.newUser, 'country': value.label
-                       }
-            }
-         }//, () => console.log(this.state.newUser)
-         )
+
+        console.log(value)
+	    this.setState( prevState => ({ 
+        newUser : {
+            ...prevState.newUser, 'country': value
+        }
+      }), () => this.saveState())
   	}
 
     // handing input and saving to user object state
   	handleInput = (e) => {
          let value = e.target.value;
          let name = e.target.name;
-         this.setState( prevState => {
-            return { 
-               newUser : {
-                        ...prevState.newUser, [name]: value
-                       }
+         this.setState( prevState => ({
+            newUser : {
+              ...prevState.newUser, [name]: value
             }
-         }//, () => console.log(this.state.newUser)
-         )
+         }), () => this.saveState())
     }
 
     // handing file and saving to node server using post API
@@ -69,26 +72,21 @@ class MFstepThree extends React.Component{
 
       axios.post('http://127.0.0.1:8000/upload/single/',data)
         .then(res => {
-          this.setState( prevState => {
-            return { 
+          this.setState( prevState => ({
                newUser : {
                         ...prevState.newUser, avatarName: 'http://localhost:8000/'+res.data.path
                        }
-            }
-         })
-        });
-
-    console.log(value);
+         }), () => this.saveState())
+      });
     }
 
     // submitting the value and validation
     nextBlock = (e) => {
     	e.preventDefault();
     	const {dataCallback} = this.props;
-    	let { stageNo } = this.state;
-    	let { newUser } = this.state
-        let error = '';
-        let eCount = 0;
+    	let { stageNo, newUser } = this.state;
+      let error = '';
+      let eCount = 0;
 
         if (typeof newUser.name === "undefined" || newUser.name === '') {
             error += 'Name Coded is Invalid.\n'
@@ -113,7 +111,7 @@ class MFstepThree extends React.Component{
         }
     }
 
-    render(){
+    render(){ console.log(this.state.value)
     	return (
             <Fragment>
                	<div className="container stepTwo">

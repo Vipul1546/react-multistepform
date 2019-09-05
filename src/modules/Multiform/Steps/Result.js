@@ -48,7 +48,7 @@ class Result extends React.Component{
             isLoading: false,
         })
 
-       if(0&&this.state.postData !== null){
+       if(this.state.postData !== null){
         localStorage.removeItem('ID-1');
         localStorage.removeItem('ID-2');
         localStorage.removeItem('ID-3');
@@ -57,12 +57,8 @@ class Result extends React.Component{
 
     render(){
     	let { data } = this.props;
-        let { apiData } = this.state;
-        let { etherscam } = (this.state !== 'undefined') ? this.state : 'N/A';
-        let { phishtank } = (this.state !== 'undefined') ? this.state : 'N/A';
-        let { wot } = (this.state !== 'undefined') ? this.state : 'N/A';
-        let { cData } = this.state
-        let { isLoading } = this.state
+        let { apiData, cData, isLoading } = this.state;
+        let { etherscam, phishtank, wot } = (this.state !== 'undefined') ? this.state : 'N/A';
         //console.log(apiData);
     	return (
             <div className="container profileBlock">
@@ -88,7 +84,7 @@ class Result extends React.Component{
                         </div>
                         <div className="col-md-5 profile">
                             <div className="col"><span className="value">{ data.category }</span><span className="key">Category</span></div>
-                            <div className="col"><span className="value">From { data.country } </span><span className="key">Country</span></div>
+                            <div className="col"><span className="value">From { data.country.label } </span><span className="key">Country</span></div>
                             <div className="col"><span className="value">{ data.website }</span><span className="key">Website</span></div>
                         </div>
                     </div>
